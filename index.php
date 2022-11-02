@@ -8,7 +8,7 @@
     <title>Multi Marker Map </title>
     <link rel="stylesheet" href="./style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsneVM_MSta--x2Sc-j1A55ZJDKPOAFVg&callback=initMap&v=weekly" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsneVM_MSta--x2Sc-j1A55ZJDKPOAFVg&v=weekly" defer></script>
     <script>
         var marker;
 
