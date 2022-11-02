@@ -21,19 +21,30 @@
 
             var map = new google.maps.Map(document.getElementById('map'), mapOptions);
             var bounds = new google.maps.LatLngBounds();
+            console.log(JSON.stringify(bounds.toJSON(), null, 2));
 
             // Retrieve data from database
+            // TODO: retrieve only from current area
             <?php
+            $con = mysqli_connect(HOST, USER, PASSWORD, DB);
             $query = mysqli_query($con, "select * from data_location");
             while ($data = mysqli_fetch_array($query)) {
+                // Recupera la info de los marcadores
                 $nama = $data['desc'];
                 $lat = $data['lat'];
                 $lon = $data['lon'];
+                // $imgPath = $data['imgpath'];
 
+                // Posiciona los marcadores en el mapa
                 echo ("addMarker($lat, $lon, '<b>$nama</b>');\n");
             }
             mysqli_close($con);
             ?>
+
+            // Creates listener to click events
+            map.addListener("click", (e) => {
+                placeMarkerAndPanTo(e.latLng, map);
+            });
 
             // Proses of making marker 
             function addMarker(lat, lng, info) {
@@ -52,7 +63,26 @@
                 google.maps.event.addListener(marker, 'click', function() {
                     infoWindow.setContent(html);
                     infoWindow.open(map, marker);
+                    // TODO: que muestre más cosas (imagen)
                 });
+            }
+
+            // Makes it possible to add new markers
+            function placeMarkerAndPanTo(latLng, map) {
+                new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                });
+                map.panTo(latLng);
+                console.log(JSON.stringify(latLng.toJSON(), null, 2));
+                // TODO: popup to register info and send to db
+                // I suppose it has to be sent asynchronously to a php function via post (jquery)
+                <?php
+                /*$con = mysqli_connect(HOST, USER, PASSWORD, DB);
+                $query = mysqli_query($con, "INSERT INTO TABLE ('desc', 'lat', 'lon') VALUES ('This location', )");
+                
+                mysqli_close($con);*/
+                ?>
             }
 
         }
