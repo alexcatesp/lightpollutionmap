@@ -32,6 +32,7 @@
 
                 echo ("addMarker($lat, $lon, '<b>$nama</b>');\n");
             }
+            mysqli_close($con);
             ?>
 
             // Proses of making marker 
