@@ -27,16 +27,17 @@
             // TODO: retrieve only from current area
             <?php
             $con = mysqli_connect(HOST, USER, PASSWORD, DB);
-            $query = mysqli_query($con, "select * from data_location");
+            $query = mysqli_query($con, "select * from " . DATA_TABLE);
             while ($data = mysqli_fetch_array($query)) {
                 // Recupera la info de los marcadores
-                $nama = $data['desc'];
+                $id = $data['id'];
+                $desc = $data['desc'];
                 $lat = $data['lat'];
                 $lon = $data['lon'];
-                // $imgPath = $data['imgpath'];
+                $img = $data['imgpath'];
 
                 // Posiciona los marcadores en el mapa
-                echo ("addMarker($lat, $lon, '<b>$nama</b>');\n");
+                echo ("addMarker($lat, $lon, '<h1>$desc</h1><p><i>($lat, $lon)</i></p><p><img src=\"$img\" width=\"300px\"></p>');\n");
             }
             mysqli_close($con);
             ?>
@@ -63,26 +64,35 @@
                 google.maps.event.addListener(marker, 'click', function() {
                     infoWindow.setContent(html);
                     infoWindow.open(map, marker);
-                    // TODO: que muestre más cosas (imagen)
                 });
             }
 
             // Makes it possible to add new markers
             function placeMarkerAndPanTo(latLng, map) {
-                new google.maps.Marker({
+                // Create a marker with chosen geolocation
+                var marker = new google.maps.Marker({
                     position: latLng,
                     map: map,
                 });
+                // Center marker
                 map.panTo(latLng);
-                console.log(JSON.stringify(latLng.toJSON(), null, 2));
+                // Store content to show in variable
+                var html = JSON.stringify(latLng.toJSON(), null, 2);
                 // TODO: popup to register info and send to db
-                // I suppose it has to be sent asynchronously to a php function via post (jquery)
-                <?php
-                /*$con = mysqli_connect(HOST, USER, PASSWORD, DB);
-                $query = mysqli_query($con, "INSERT INTO TABLE ('desc', 'lat', 'lon') VALUES ('This location', )");
-                
-                mysqli_close($con);*/
-                ?>
+                // It has to be sent asynchronously to a php function via post (jquery)
+                $.post("sendToDB.php", {
+                        lat: JSON.parse(html).lat,
+                        lng: JSON.parse(html).lng
+                    })
+                    .done(function(data) {
+                        console.log(data);
+                        // Call function to create click event on this marker too
+                        var html2 = '<h1>' + JSON.parse(data).desc + '</h1><p><i>(' + JSON.parse(data).lat + ', ' + JSON.parse(data).lon + ')</i></p><p><img src="' + JSON.parse(data).imgpath + '" width="300px"></p>';
+                        bindInfoWindow(marker, map, infoWindow, html2);
+                        infoWindow.setContent(html2);
+                        infoWindow.open(map, marker);
+                    });
+
             }
 
         }
