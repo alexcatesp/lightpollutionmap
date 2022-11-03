@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>
+		How to make a CSS glass/blur
+		effect work for an overlay?
+	</title>
+	
+	<link rel="stylesheet" href=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		section {
+			display: flex;
+			background: #001923;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			min-height: 100vh;
+		}
+
+		section .layout {
+			position: relative;
+			width: 100%;
+			max-width: 600px;
+			padding: 50px;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			border-radius: 10px;
+		}
+
+		section .layout::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+
+		section .layout h1 {
+			position: relative;
+			text-align: center;
+			color: rgb(36, 168, 36);
+		}
+
+		section .layout p {
+			position: relative;
+			color: #fff;
+		}
+
+		section .layout button {
+			position: relative;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<div class="layout">
+			<h1>GeeksforGeeks</h1>
+			
+			<p class="py-2">
+				It is a computer science portal for geeks.
+				It is a platform where you can learn and
+				practice programming problems. It contains
+				programming content, web technology content,
+				and some other domain content also.
+			</p>
+
+
+			<button class="btn btn-danger">
+				Button
+			</button>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -21,7 +21,6 @@
 
             var map = new google.maps.Map(document.getElementById('map'), mapOptions);
             var bounds = new google.maps.LatLngBounds();
-            console.log(JSON.stringify(bounds.toJSON(), null, 2));
 
             // Retrieve data from database
             // TODO: retrieve only from current area
@@ -76,6 +75,12 @@
                 });
                 // Center marker
                 map.panTo(latLng);
+
+                // Load form.html on div
+                loadHTML();
+
+                /*
+
                 // Store content to show in variable
                 var html = JSON.stringify(latLng.toJSON(), null, 2);
                 // TODO: popup to register info and send to db
@@ -92,17 +97,33 @@
                         infoWindow.setContent(html2);
                         infoWindow.open(map, marker);
                     });
-
+*/
             }
 
         }
+
+        function loadHTML() {
+            fetch("form.html")
+                .then(response => response.text())
+                .then(text => document.getElementById("form").innerHTML = text);
+
+            document.getElementById("form").style.zIndex = 1;
+            document.getElementById("map").style.zIndex = -1;
+        }
+
+        function hideForm() {
+            document.getElementById("form").style.zIndex = -1;
+            document.getElementById("map").style.zIndex = 1;
+        }
+
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 
 </head>
 
 <body onload="initialize()">
-    <div id="map"></div>
+    <div class='content' id="map"></div>
+    <div class='content' id="form" onclick="hideForm()"></div>
 </body>
 
 </html>
