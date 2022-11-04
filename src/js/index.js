@@ -31,19 +31,17 @@ function initialize() {
 
     // Retrieve data from database
     $.post("./src/php/fetchMarkers.php", function (results) {
-        console.log(JSON.parse(results));
-        /*if (Object.keys(results).length > 0) {
-            // Format the data to be used
-            var info = '<p><i>(' + JSON.parse(data).lat + ', ' + JSON.parse(data).lon + ')</i></p><p>' + JSON.parse(data).desc + '</p><p><img src="' + JSON.parse(data).imgpath + '" width="300px"></p>';
-            // Add the marker
-            addMarker(JSON.parse(data).lat, JSON.parse(data).lon, info);
-            // Center marker
-            var posdb = new google.maps.LatLng(JSON.parse(data).lat, JSON.parse(data).lon);
-            map.panTo(posdb);
-            hideForm();
+        if (Object.keys(results).length > 0) {
+            // Take the array
+            var arrResults = JSON.parse(results);
+            console.log(arrResults);
+            // For each position add the marker
+            arrResults.forEach(element => {
+                // Write the element, it is a call to addMarker
+            });
         } else {
             console.log("Something went wrong");
-        }*/
+        }
     });
     // TODO: retrieve only from current area (pos - margin)
 
