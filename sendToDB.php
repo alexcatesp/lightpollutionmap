@@ -1,6 +1,6 @@
 <?php
 include_once('./connect.php');
-$desc = 'prueba';
+$desc = htmlspecialchars($_POST['desc']);
 $lat = floatval(htmlspecialchars($_POST['lat']));
 $lng = floatval(htmlspecialchars($_POST['lng']));
 $con = new PDO(DSN, USER, PASSWORD);
