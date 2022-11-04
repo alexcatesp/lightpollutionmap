@@ -44,7 +44,7 @@
             }
 
             // Retrieve data from database
-            // TODO: retrieve only from current area
+            // TODO: retrieve only from current area (pos - margin)
             <?php
             $con = mysqli_connect(HOST, USER, PASSWORD, DB);
             $query = mysqli_query($con, "select * from " . DATA_TABLE);
@@ -64,7 +64,7 @@
 
             // Creates listener to click events
             map.addListener("click", (e) => {
-                placeMarkerAndPanTo(e.latLng, map);
+                loadHTML(e.latLng);
             });
         }
 
@@ -82,14 +82,9 @@
         function bindInfoWindow(marker, map, infoWindow, html) {
             google.maps.event.addListener(marker, 'click', function() {
                 infoWindow.setContent(html);
+                map.panTo(marker.position);
                 infoWindow.open(map, marker);
             });
-        }
-
-        // Makes it possible to add new markers
-        function placeMarkerAndPanTo(latLng, map) {
-            // First open the dialog for the registration of a new marker
-            loadHTML(latLng);
         }
 
         $(document).on('submit', '#markerForm', function(e) {
@@ -102,26 +97,29 @@
                 })
                 .done(function(data) {
                     if (data != false) {
-                        console.log(data);
                         // Format the data to be used
                         var info = '<h1>' + JSON.parse(data).desc + '</h1><p><i>(' + JSON.parse(data).lat + ', ' + JSON.parse(data).lon + ')</i></p><p><img src="' + JSON.parse(data).imgpath + '" width="300px"></p>';
                         // Add the marker
-                        addMarker(JSON.parse(data).lat, JSON.parse(data).lon, JSON.parse(data).desc);
+                        addMarker(JSON.parse(data).lat, JSON.parse(data).lon, info);
                         // Center marker
-                        var posdb = new google.maps.LatLng(JSON.parse(data).lat, lat, JSON.parse(data).lon);
+                        var posdb = new google.maps.LatLng(JSON.parse(data).lat, JSON.parse(data).lon);
                         map.panTo(posdb);
+                        hideForm();
                     } else {
                         console.log("Something went wrong");
                     }
                 });
         });
 
-        function loadHTML() {
+        function loadHTML(latLng) {
             // Read and load the form in the div
             fetch("form.html")
                 .then(response => response.text())
-                .then(text => document.getElementById("form").innerHTML = text);
-            // Make it visible over the map
+                .then(text => document.getElementById("form").innerHTML = text)
+                .then(text => document.getElementById("inputLatitude").value = '' + latLng.toJSON().lat)
+                .then(text => document.getElementById("inputLongitude").value = '' + latLng.toJSON().lng);
+            
+                // Make it visible over the map
             document.getElementById("form").style.zIndex = 1;
             document.getElementById("map").style.zIndex = -1;
         }
