@@ -25,16 +25,8 @@
             </p>
 
             <form id="markerForm">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="latitude">Latitud</label>
-                        <input type="text" class="form-control" id="inputLatitude" name="latitude" placeholder="0.000" readonly>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="longitude">Longitud</label>
-                        <input type="text" class="form-control" id="inputLongitude" name="longitude" placeholder="0.000" readonly>
-                    </div>
-                </div>
+                <input type="hidden" class="form-control" id="inputLatitude" name="latitude" placeholder="0.000">
+                <input type="hidden" class="form-control" id="inputLongitude" name="longitude" placeholder="0.000">
                 <div class="form-group">
                     <label for="textarea">Comentarios</label>
                     <textarea class="form-control" id="textDescription" rows="3" name="comments"></textarea>
