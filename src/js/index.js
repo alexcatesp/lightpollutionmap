@@ -100,7 +100,7 @@ function loadHTML(latLng) {
         .then(response => response.text())
         .then(text => document.getElementById("form").innerHTML = text)
         .then(text => document.getElementById("inputLatitude").value = '' + latLng.toJSON().lat)
-        .then(text => document.getElementById("inputLongitude").value = '' + latLng.toJSON().lng);
+        .then(text => document.getElementById("inputLongitude").value = '' + latLng.toJSON().lng)
 
     // Make it visible over the map
     document.getElementById("form").style.zIndex = 1;
