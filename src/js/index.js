@@ -34,10 +34,9 @@ function initialize() {
         if (Object.keys(results).length > 0) {
             // Take the array
             var arrResults = JSON.parse(results);
-            console.log(arrResults);
             // For each position add the marker
-            arrResults.forEach(element => {
-                // Write the element, it is a call to addMarker
+            arrResults.forEach(function(element) {
+                addMarker(element[0], element[1], element[2]);
             });
         } else {
             console.log("Something went wrong");
