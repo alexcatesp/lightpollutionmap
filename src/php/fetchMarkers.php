@@ -1,5 +1,6 @@
 <?php
-include_once('./src/php/connect.php');
+include_once('connect.php');
+
 $con = mysqli_connect(HOST, USER, PASSWORD, DB);
 $query = mysqli_query($con, "select * from " . DATA_TABLE);
 $results = array();
@@ -11,11 +12,8 @@ while ($data = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
     $lon = $data['lon'];
     $img = $data['imgpath'];
 
-    echo(json_encode(array($data['id'], $data['desc'])));
-    exit();
-
-    // Posiciona los marcadores en el mapa
-    $results[] = "addMarker($lat, $lon, '<p><i>($lat, $lon)</i></p><p>$desc</p><p><img src=\"$img\" width=\"300px\"></p>');";
+    $results[] = array($lat, $lon, "<p><i>($lat, $lon)</i></p><p>$desc</p><p><img src=\"$img\" width=\"300px\"></p>");
 }
 mysqli_close($con);
 echo json_encode($results);
+
