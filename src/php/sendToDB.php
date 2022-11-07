@@ -9,6 +9,7 @@ $lng = floatval(htmlspecialchars($_POST['lng']));
 // OJO: no sé el nombre hasta que no sepa el id
 if (isset($_FILES['image']['name'])) {
     $targetDir = "./imgs/";
+    // LO de abajo es ejemplo
     $name=$_FILES['photo']['name'];
     $size=$_FILES['photo']['size'];
     $type=$_FILES['photo']['type'];
