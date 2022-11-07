@@ -8,17 +8,15 @@ $lng = floatval(htmlspecialchars($_POST['lng']));
 
 // OJO: no sé el nombre hasta que no sepa el id
 if (isset($_FILES['image']['name'])) {
-    $targetDir = "./imgs/";
+    $targetDir = "../../imgs/";
     // LO de abajo es ejemplo
-    $name=$_FILES['photo']['name'];
-    $size=$_FILES['photo']['size'];
-    $type=$_FILES['photo']['type'];
-    $temp=$_FILES['photo']['tmp_name'];
+    $name = $_FILES['image']['name'];
+    $size = $_FILES['image']['size'];
+    $type = $_FILES['image']['type'];
+    $temp = $_FILES['image']['tmp_name'];
     $date = date('Y-m-d H:i:s');
-    $caption1=$_POST['caption'];
-    $link=$_POST['link'];
    
-    move_uploaded_file($temp,"files/".$name);
+    move_uploaded_file($temp, $targetDir . $name);
 }
 
 // Connect to database
