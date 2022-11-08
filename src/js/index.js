@@ -10,8 +10,7 @@ function initialize() {
         center: {
             lat: 41.66396357460837,
             lng: -4.704806504347418
-        },
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
     };
     // Create map on div
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
