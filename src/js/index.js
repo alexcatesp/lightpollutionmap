@@ -73,25 +73,19 @@ function onMarkerClick() {
     this.openPopup();
 }
 
-$(document).ready(function() {
-    console.log("document ready");
-    $("#upload").click(function() {
-        console.log("I'm here");
-        let file_data = $("#file")[0].files;
-        form_data.append("file", file_data[0]);
-        //e.preventDefault();
-        $.ajax({
-            type: 'post',
-            url: './src/php/sendToDB.php',
-            data: form_data,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    });
+$('#markerForm').on('submit', function(e) {
+    console.log("Estoy en el JS");
+    e.preventDefault();
+    $.post("./src/php/sendToDB.php", {
+        lat: document.forms["markerForm"]["latitude"].value,
+        lng: document.forms["markerForm"]["longitude"].value,
+        desc: document.forms["markerForm"]["comments"].value
+    }, procesar)
 });
+
+function procesar(data) {
+    console.log(data);
+}
 
 
 /*if (data != false) {
