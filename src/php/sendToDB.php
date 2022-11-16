@@ -1,6 +1,6 @@
 <?php
 
-echo json_encode("Hola, Pepe");
+echo json_encode(array("saludo" => "Hola, Pepe"));
 
 // Include connection constants
 //include_once('../../connect.php');
