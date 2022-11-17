@@ -38,6 +38,8 @@ function initialize() {
 
     // Creates listener to click events anywhere on the map
     map.on('click', onMapClick);
+
+    hideForm();
 }
 
 // Function for creating a map
@@ -57,14 +59,9 @@ function addMarker(latitude, longitude, map) {
 
 // Function for responding to click events on map
 function onMapClick(e) {
-    // Read and load the form in the div
-    fetch("./src/html/form.html")
-        .then(response => response.text())
-        .then(text => document.getElementById("form").innerHTML = text)
-        .then(text => document.getElementById("inputLatitude").value = '' + e.latlng.lat)
-        .then(text => document.getElementById("inputLongitude").value = '' + e.latlng.lng)
-
     // Make it visible over the map
+    document.getElementById("inputLatitude").value = '' + e.latlng.lat;
+    document.getElementById("inputLongitude").value = '' + e.latlng.lng;
     document.getElementById("form").style.zIndex = 1;
     document.getElementById("map").style.zIndex = -1;
 }
@@ -75,6 +72,7 @@ function onMarkerClick() {
 
 function procesar(data) {
     console.log(data);
+    hideForm();
 }
 
 

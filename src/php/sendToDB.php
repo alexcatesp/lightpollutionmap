@@ -1,19 +1,19 @@
 <?php
 
-echo json_encode(array("saludo" => "Hola, Pepe"));
-
 // Include connection constants
-//include_once('../../connect.php');
+include_once('./connect.php');
 
-/*if(isset($_POST['latitude']) || isset($_POST['longitude']) || isset())
+echo json_encode($_POST);
 
-$desc = htmlspecialchars($_POST['desc']);
-$lat = floatval(htmlspecialchars($_POST['lat']));
-$lng = floatval(htmlspecialchars($_POST['lng']));
-$img = $_POST['img'];
+/*if (isset($_POST['lat']) || isset($_POST['lng']) || isset($_POST['desc'])) {
+
+    $desc = htmlspecialchars($_POST['desc']);
+    $lat = floatval(htmlspecialchars($_POST['lat']));
+    $lng = floatval(htmlspecialchars($_POST['lng']));
+    $img = $_POST['img'];
 
 // OJO: no sé el nombre hasta que no sepa el id
-if (isset($_FILES['image'])) {
+/*if (isset($_FILES['image'])) {
 
     $targetDir = "./imgs/";
     // LO de abajo es ejemplo
@@ -25,23 +25,25 @@ if (isset($_FILES['image'])) {
     $targetFile = $targetDir . basename($name);
    
     move_uploaded_file($temp, $targetFile);
+}*/
+
+    // Connect to database
+ /*   $con = new PDO(DSN, USER, PASSWORD);
+    $sql = "INSERT INTO `" . DATA_TABLE . "` (`desc`, `lat`, `lon`, `imgpath`) VALUES (?, ?, ?, ?)";
+    $stmt = $con->prepare($sql);
+    //$stmt->execute(array($desc, $lat, $lng, $targetFile));
+    $stmt->execute(array($desc, $lat, $lng, null));
+    $sql = "SELECT * FROM `" . DATA_TABLE . "` ORDER BY `id` DESC LIMIT 1";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo json_encode(array("db" => $result, "img" => $img));
 }
-
-// Connect to database
-$con = new PDO(DSN, USER, PASSWORD);
-$sql = "INSERT INTO `" . DATA_TABLE . "` (`desc`, `lat`, `lon`, `imgpath`) VALUES (?, ?, ?, ?)";
-$stmt = $con->prepare($sql);
-$stmt->execute(array($desc, $lat, $lng, $targetFile));
-$sql = "SELECT * FROM `".DATA_TABLE. "` ORDER BY `id` DESC LIMIT 1";
-$stmt = $con->prepare($sql);
-$stmt->execute();
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo json_encode($result);*/
-
+*/
 /*// Recover info from form
-$desc = htmlspecialchars($_POST['comments']);
-$lat = floatval(htmlspecialchars($_POST['latitude']));
-$lng = floatval(htmlspecialchars($_POST['longitude']));
+$desc = htmlspecialchars($_POST['desc']);
+$lat = floatval(htmlspecialchars($_POST['lat']));
+$lng = floatval(htmlspecialchars($_POST['lng']));
 
 // Recover image (if it has been uploaded)
 if (isset($_FILES['image'])) {
