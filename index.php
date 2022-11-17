@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="textarea">Comentarios</label>
                         <textarea class="form-control" id="textDescription" rows="3" name="comments"></textarea>
-                        <input type="file" id="file" name="file" accept="image/*" />
+                        <input type="file" name="image" accept="image/*" />
                     </div>
                     <button type="submit" value="Enviar" class="btn btn-primary">Enviar</button>
                 </form>
@@ -47,14 +47,19 @@
 
     <script>
         // Creates listener on form submit
-        $('#markerForm').on('submit', function(e) {
+        $('form#markerForm').submit(function(e) {
             e.preventDefault();
-            $.post("./src/php/sendToDB.php", {
-                lat: document.forms["markerForm"]["latitude"].value,
-                lng: document.forms["markerForm"]["longitude"].value,
-                desc: document.forms["markerForm"]["comments"].value,
-                //img: 
-            }, procesar);
+            var formData = new FormData(this);
+            $.ajax({
+                url: "./src/php/sendToDB.php",
+                type: 'POST',
+                data: formData,
+                contentType: 'multipart/form-data',
+                success: procesar,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
         });
     </script>
 
