@@ -17,7 +17,7 @@ if (isset($_POST['latitude']) || isset($_POST['longitude']) || isset($_POST['com
         $type = $_FILES['image']['type'];
         $size = $_FILES['image']['size'];
         $temp = $_FILES['image']['tmp_name'];
-        $date = date('Y-m-d H:i:s');
+        $date = date('Ymd_His');
         $targetFile = $targetDir . basename($name) . "_" . $date;
 
         move_uploaded_file($temp, $targetFile);

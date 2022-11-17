@@ -79,7 +79,7 @@ function procesar(results) {
         // Take the array
         var arrResults = JSON.parse(results);
         // Format the data to be used
-        var info = '<p><i>(' + arrResults['lat'] + ', ' + arrResults['lon'] + ')</i></p><p>' + arrResults['desc'] + '</p><p><img src="' + arrResults['imgpath'] + '" width="300px"></p>';
+        var info = '<p><i>GPS: (lat:' + arrResults['lat'] + ', long:' + arrResults['lon'] + ')</i></p><p>' + arrResults['desc'] + '</p><p><img src="' + arrResults['imgpath'] + '" width="300px"></p>';
         // Add the marker
         var marker = addMarker(arrResults['lat'], arrResults['lon'], map).bindPopup(info);
         // Create event listener for clicks onto markers
